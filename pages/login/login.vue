@@ -4,10 +4,10 @@
 		<uni-card title="密码登录">
 			<up-form :model="loginParam">
 				<up-form-item label="手机号:" label-width="120rpx">
-					<up-input type="number" placeholder="请输入手机号" :value="loginParam.account" maxlength="11"></up-input>
+					<up-input type="number" placeholder="请输入手机号" v-model="loginParam.account" maxlength="11"></up-input>
 				</up-form-item>
 				<up-form-item label="密码:" label-width="120rpx">
-					<up-input type="password" placeholder="请输入密码" :value="loginParam.password" maxlength="20"></up-input>
+					<up-input type="password" placeholder="请输入密码" v-model="loginParam.password" maxlength="20"></up-input>
 				</up-form-item>
 				<up-form-item>
 					<radio :checked="loginParam.checked"/> 
@@ -22,30 +22,36 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				loginParam: {
-					account:'',
-					password:'',
-					checked: false
-				}
+import chat from '../../models/chat'
+import { Login } from '../../models/login'
+export default {
+	data() {
+		return {
+			loginParam: {
+				account:'',
+				password:'',
+				checked: false
 			}
+		}
+	},
+	methods: {
+		toProtocol: function() {
+			this.loginParam.checked = true
+			uni.navigateTo({
+				url: '/pages/login/protocol'
+			})
 		},
-		methods: {
-			toProtocol: function() {
-				this.loginParam.checked = true
-				uni.navigateTo({
-					url: '/pages/login/protocol'
-				})
-			},
-			submit() {
+		submit() {
+			let promise = Login.loginByAccount(this.loginParam.account, this.loginParam.password)
+			chat.handleResponsePromise(promise, res => {
+				chat.setAuthorization(res.token)
 				uni.reLaunch({
 					url: '/pages/message/message'
 				})
-			}
+			})
 		}
 	}
+}
 </script>
 
 <style>

@@ -6,8 +6,8 @@
 			</template>
 		</up-navbar>
 		<up-popup v-model:show="showMenu" mode="right">
-			<uni-list>
-				<uni-list-item title="发起群聊发起群聊发起群聊发起群聊"></uni-list-item>
+			<uni-list style="margin-top: 50px; width: 150px">
+				<uni-list-item title="发起群聊"></uni-list-item>
 				<uni-list-item title="添加朋友"></uni-list-item>
 				<uni-list-item title="扫一扫"></uni-list-item>
 				<uni-list-item title="收付款"></uni-list-item>
