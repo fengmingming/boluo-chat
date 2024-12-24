@@ -44,6 +44,7 @@ export default {
 		submit() {
 			let promise = Login.loginByAccount(this.loginParam.account, this.loginParam.password)
 			chat.handleResponsePromise(promise, res => {
+				chat.setAccount(this.loginParam.account)
 				chat.setAuthorization(res.token)
 				uni.reLaunch({
 					url: '/pages/message/message'
