@@ -20,28 +20,33 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				title: 'boluo-chat'
-			}
-		},
-		onLoad() {
-
-		},
-		methods: {
-			toLogin(){
-				uni.navigateTo({
-					url: '/pages/login/login'
-				})
-			},
-			toRegister(){
-				uni.navigateTo({
-					url: '/pages/login/register'
-				})
-			},
+import chat from '../../models/chat'
+export default {
+	data() {
+		return {
+			title: 'boluo-chat'
 		}
+	},
+	mounted() {
+		if(chat.getAccount()) {
+			uni.reLaunch({
+				url: '/pages/message/message'
+			})
+		}
+	},
+	methods: {
+		toLogin(){
+			uni.navigateTo({
+				url: '/pages/login/login'
+			})
+		},
+		toRegister(){
+			uni.navigateTo({
+				url: '/pages/login/register'
+			})
+		},
 	}
+}
 </script>
 
 <style>

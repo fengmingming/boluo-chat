@@ -52,22 +52,26 @@
 					</template>
 				</uni-list-item>
 			</uni-list>
+			<up-button text="退出" @tap="logout"></up-button>
 		</view>
 		<b-tabbar></b-tabbar>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
+import chat from '../../models/chat';
+export default {
+	data() {
+		return {
 			
 		}
+	},
+	methods: {
+		logout: function() {
+			chat.logout()
+		}
 	}
+}
 </script>
 
 <style>

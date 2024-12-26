@@ -7,7 +7,7 @@ export class Login {
 	}
 	
 	static loginByAccount(account, password) {
-		return chat.post(`/Tenants/${chat.tenantId}/Accounts/Login`, {account, password})
+		return chat.post(`/Tenants/${chat.getTenantId()}/Accounts/Login`, {account, password})
 	}  
 	
 	static loginByCode(account, code) {

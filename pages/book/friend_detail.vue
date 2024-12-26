@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<up-navbar title="新的朋友" :autoBack="true" rightText="添加朋友" bgColor="#fafafa"></up-navbar>
+		<up-navbar :autoBack="true" right-icon="more-dot-fill"></up-navbar>
 		<view class="body">
 			
 		</view>
@@ -11,20 +11,20 @@
 export default {
 	data() {
 		return {
+			account: null
 		}
 	},
-	mounted() {
-		
+	onLoad(option) {
+		this.account = option.account
 	},
 	methods: {
 		
 	}
 }
 </script>
-
-<style>
 .body {
-	margin-top: 86rpx;
-	margin-bottom: 130rpx;
+	margin-top: 88px;
 }
+<style>
+
 </style>

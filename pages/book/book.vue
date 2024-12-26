@@ -22,7 +22,7 @@
 						<uni-list :border="true">
 							<view v-for="(cell, index) in item">
 								<uni-list-item :title="cell.nickName" thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png"
-								 	 thumb-size="lg"></uni-list-item>
+								 	 thumb-size="lg" to="/pages/book/friend_detail?account=cell.account"></uni-list-item>
 							</view>
 						</uni-list>
 					</up-index-item>
@@ -51,7 +51,7 @@ export default {
 		}
 	},
 	mounted() {
-		let promise = Friend.findAll(chat.getAccount());
+		let promise = Friend.findAll();
 		chat.handleResponsePromise(promise, datas => {
 			if(datas) {
 				let map = datas.reduce((map, data) => {
