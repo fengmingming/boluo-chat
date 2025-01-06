@@ -23,7 +23,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 .chat-custom-right {
 	flex: 1;
 	/* #ifndef APP-NVUE */

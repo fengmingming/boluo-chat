@@ -84,7 +84,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .body {
 	margin-top: 86rpx;
 	margin-bottom: 130rpx;

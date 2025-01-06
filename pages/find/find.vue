@@ -67,7 +67,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 .body {
 	margin-top: 88rpx;
 	background-color: #fafafa;

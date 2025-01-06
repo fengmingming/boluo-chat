@@ -72,7 +72,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 .container {
 	display: flex;
 	justify-content: center; /* 水平居中 */
