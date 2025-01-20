@@ -4,46 +4,46 @@
 		<view class="body">
 			<uni-list>
 				<uni-list-item title="列表左侧带略缩图" note="" thumb-size="base"
-				thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
+					thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
 					<template v-slot:footer>
 						<up-icon name="arrow-right"></up-icon>
 					</template>
 				</uni-list-item>
 			</uni-list>
-			<up-gap height="5"></up-gap>
+			<up-gap height="3"></up-gap>
 			<uni-list>
 				<uni-list-item title="列表左侧带略缩图" note="" thumb-size="base"
-				thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
+					thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
 					<template v-slot:footer>
 						<up-icon name="arrow-right"></up-icon>
 					</template>
 				</uni-list-item>
 			</uni-list>
-			<up-gap height="5"></up-gap>
+			<up-gap height="3"></up-gap>
 			<uni-list>
 				<uni-list-item title="列表左侧带略缩图" note="" thumb-size="base"
-				thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
+					thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
 					<template v-slot:footer>
 						<up-icon name="arrow-right"></up-icon>
 					</template>
 				</uni-list-item>
 			</uni-list>
-			<up-gap height="5"></up-gap>
+			<up-gap height="3"></up-gap>
 			<uni-list>
 				<uni-list-item title="列表左侧带略缩图" note="" thumb-size="base"
-				thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
+					thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
 					<template v-slot:footer>
 						<up-icon name="arrow-right"></up-icon>
 					</template>
 				</uni-list-item>
 				<uni-list-item title="列表左侧带略缩图" note="" thumb-size="base"
-				thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
+					thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
 					<template v-slot:footer>
 						<up-icon name="arrow-right"></up-icon>
 					</template>
 				</uni-list-item>
 				<uni-list-item title="列表左侧带略缩图" note="" thumb-size="base"
-				thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
+					thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png">
 					<template v-slot:footer>
 						<up-icon name="arrow-right"></up-icon>
 					</template>

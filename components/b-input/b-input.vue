@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { Messsage } from '../../models/message.js';
+import { Message } from '../../models/message.js';
 const originStatus = {
 	volumeBtn: true,
 	leftKeyBoardBtn:false,
@@ -94,7 +94,7 @@ export default {
 			
 		},
 		sendBtnClick() {
-			this.$emit('messageHandle', Messsage.buildTextMessage(this.to, this.inputText))
+			this.$emit('messageHandle', Message.buildTextMessage(this.to, this.inputText))
 			this.inputText = ''
 			this.resetStatus()
 		}

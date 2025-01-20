@@ -24,6 +24,7 @@
 .mc-item {
 	display: flex;
 	justify-content: flex-end;
+	padding-right: 5px;
 }
 .text {
 	max-width: 80%;
@@ -34,6 +35,6 @@
     line-height: 1.5;
 	background-color: #fafafa;
 	align-self: flex-end;
-	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
 }
 </style>

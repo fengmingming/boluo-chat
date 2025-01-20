@@ -2,7 +2,7 @@ import App from './App'
 
 // #ifndef VUE3
 import Vue from 'vue'
-import uviewPlus, { setConfig } from 'uview-plus''
+import uviewPlus, { setConfig } from 'uview-plus'
 import './uni.promisify.adaptor'
 Vue.config.productionTip = false
 App.mpType = 'app'

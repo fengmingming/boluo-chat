@@ -24,6 +24,7 @@
 .mc-item {
 	display: flex;
 	justify-content: flex-start;
+	padding-left: 5px;
 }
 .text {
 	max-width: 80%;

@@ -6,4 +6,5 @@ export class Account {
 	static findByAccount(account) {
 		return chat.get(`/Tenants/${chat.getTenantId()}/Accounts/${account}`)
 	}
+	
 }

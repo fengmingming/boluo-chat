@@ -7,7 +7,115 @@ function buildBaseMessage() {
 	}
 }
 
-export class Messsage {
+var messageQueueMap = uni.getStorageSync('__messageQueueMap')
+var messageConsumers = {}
+
+if(!messageQueueMap) {
+	messageQueueMap = {}
+}
+
+function findQueuekey(message) {
+	let key
+	if(message.group) {
+		key = message.to
+	}else {
+		if(chat.getAccount() == message.from) {
+			key = message.to
+		}else {
+			key = message.from
+		}
+	}
+	return key
+}
+
+function storeMessage(message) {
+	let key = findQueuekey(message)
+	let consumer = messageConsumers[key]
+	if(consumer) {
+		consumer(message)
+	}else {
+		let map = messageQueueMap
+		let queue = map[key]
+		if(!queue) {
+			queue = []
+			map[key] = queue
+		}
+		queue.push(message)
+	}
+	uni.setStorageSync('__messageQueueMap', messageQueueMap)
+}
+
+function _getMessages(account) {
+	let map = messageQueueMap
+	let queue = map[account]
+	if(!queue) {
+		queue = []
+		map[account] = queue
+	}
+	let maxMsgId = ''
+	if(queue.length > 0) {
+		maxMsgId = queue[queue.length - 1].msgId
+	}
+	return new Promise((resolve, reject) => {
+		let index = account.indexOf('GROUP:')
+		if(index == 0) {
+			chat.handleResponsePromise(chat.get(`/Tenants/${chat.getTenantId()}/Groups/${account.substr(6)}/Messages?maxMsgId=${maxMsgId}`), data => {
+				data.forEach(message => {
+					storeMessage(message)
+				})
+				if(data.length > 0) {
+					_getMessages(account)
+				}else {
+					resolve(queue)
+				}
+			})
+		}else {
+			chat.handleResponsePromise(chat.get(`/Tenants/${chat.getTenantId()}/Accounts/${chat.getAccount()}/Messages?account=${account}&maxMsgId=${maxMsgId}`), data => {
+				data.forEach(message => {
+					storeMessage(message)
+				})
+				if(data.length > 0) {
+					_getMessages(account)
+				}else {
+					resolve(queue)
+				}
+			})
+		}
+	})
+}
+
+let messageSocketTask = uni.connectSocket({
+	url: chat.wsUrl + `?tenantId=${chat.getTenantId()}&account=${chat.getAccount()}&token=${chat.getAuthorization()}`,
+	complete: ()=> {}
+});
+
+messageSocketTask.onClose(re => {
+	console.log('socket close', re)
+})
+
+messageSocketTask.onError(re => {
+	console.log('socket error', re)
+})
+
+messageSocketTask.onOpen(re => {
+	console.log('socket start', re)
+})
+
+messageSocketTask.onMessage(re => {
+	let message = JSON.parse(re.data)
+	console.log('message', message)
+	storeMessage(message)
+})
+
+export function subscribe(key, consumer) {
+	messageConsumers[key] = consumer
+}
+
+export function unSubscribe(key) {
+	messageConsumers[key] = null
+}
+
+export class Message {
 	
 	constructor() {}
 	
@@ -17,6 +125,15 @@ export class Messsage {
 		message.msgType = 'text'
 		message.content = content
 		return message
+	}
+	
+	static sendMessage(message) {
+		let tenantId = chat.getTenantId()
+		return chat.post(`/Tenants/${tenantId}/Messages`, message)
+	}
+	
+	static getMessages(account) {
+		return _getMessages(account)
 	}
 	
 }

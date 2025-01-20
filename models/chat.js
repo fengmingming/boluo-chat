@@ -1,5 +1,7 @@
 const domain = 'http://localhost:9090'
 const tenantId = '1866136483145224194'
+const wsUrl = 'ws://127.0.0.1:8081/chat'
+
 function execute(url, method, param) {
 	let req = {url: domain + url, method: method, dataType: 'json'}
 	req.header = {'content-type': 'application/json'}
@@ -12,12 +14,14 @@ function execute(url, method, param) {
 	}
 	return uni.request(req)
 }
+
 function logout() {
 	uni.clearStorageSync()
 	uni.reLaunch({
 		url: '/pages/index/index'
 	})
 }
+
 export default {
 	getTenantId: function() {
 		return tenantId;
@@ -30,6 +34,9 @@ export default {
 	},
 	setAuthorization: function(value) {
 		uni.setStorageSync('__authorization', value)
+	},
+	getAuthorization: function() {
+		return uni.getStorageSync('__authorization')
 	},
 	post: function(url, param) {
 		return execute(url, 'POST', param)
@@ -63,4 +70,5 @@ export default {
 		})
 	},
 	logout,
+	wsUrl,
 }
