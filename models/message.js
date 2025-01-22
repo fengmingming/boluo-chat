@@ -84,9 +84,12 @@ function _getMessages(account) {
 	})
 }
 
+var connected = false
 let messageSocketTask = uni.connectSocket({
 	url: chat.wsUrl + `?tenantId=${chat.getTenantId()}&account=${chat.getAccount()}&token=${chat.getAuthorization()}`,
-	complete: ()=> {}
+	complete: ()=> {
+		connected = true
+	}
 });
 
 messageSocketTask.onClose(re => {
@@ -102,6 +105,10 @@ messageSocketTask.onOpen(re => {
 })
 
 messageSocketTask.onMessage(re => {
+	if(re.data == 'PONG') {
+		console.log('message pong')
+		return
+	}
 	let message = JSON.parse(re.data)
 	console.log('message', message)
 	storeMessage(message)
@@ -113,6 +120,18 @@ export function subscribe(key, consumer) {
 
 export function unSubscribe(key) {
 	messageConsumers[key] = null
+}
+
+export function ping() {
+	if(connected) {
+		messageSocketTask.send({data: 'PING'})
+	}
+}
+
+export function closeMessageSocket() {
+	if(connected) {
+		messageSocketTask.close()
+	}
 }
 
 export class Message {
@@ -134,6 +153,20 @@ export class Message {
 	
 	static getMessages(account) {
 		return _getMessages(account)
+	}
+	
+	static getLastMessages() {
+		let accounts = Object.keys(messageQueueMap)
+		if(accounts) {
+			accounts = accounts.filter(account => messageQueueMap[account]).map(account => {
+				let queue = messageQueueMap[account]
+				return {
+					account: account,
+					message: queue[queue.length - 1]
+				}
+			})
+		}
+		return accounts
 	}
 	
 }

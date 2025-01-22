@@ -1,14 +1,15 @@
 <template>
 	<view>
 		<up-navbar :autoBack="true" right-icon="more-dot-fill" :title="title" bg-color="#fafafa"></up-navbar>
-		<view class="body">
+		<view>
+			<up-gap height="60"></up-gap>
 			<view v-for="(message, index) in messages">
 				<b-left-mc :message="message" :account="me" v-if="message.from != me.account"></b-left-mc>
 				<b-right-mc :message="message" :account="account" v-if="message.from == me.account"></b-right-mc>
 			</view>
+			<up-gap height="160"></up-gap>
 		</view>
-		<up-gap height="150" id="bottom_position"></up-gap>
-		<view class="foot">
+		<view class="foot" id="bottom_position">
 			<b-input @messageHandle="messageHandle" :to="account.account"></b-input>
 		</view>
 	</view>
@@ -44,6 +45,9 @@ export default {
 			this.me = data
 		})
 	},
+	onShow() {
+		uni.pageScrollTo({selector: '#bottom_position'})
+	},
 	onUnload() {
 		unSubscribe(this.account.account)
 	},
@@ -56,10 +60,7 @@ export default {
 }
 </script>
 
-<style>
-.body {
-	margin-top: 68px;
-}
+<style scoped>
 .foot {
 	position: fixed;
 	bottom: 0;

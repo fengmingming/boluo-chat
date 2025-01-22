@@ -1,6 +1,7 @@
 import chat from './chat.js'
 
 export class Account {
+	
 	constructor(){}
 	
 	static findByAccount(account) {
