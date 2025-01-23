@@ -5,7 +5,8 @@ export class Account {
 	constructor(){}
 	
 	static findByAccount(account) {
-		return chat.get(`/Tenants/${chat.getTenantId()}/Accounts/${account}`)
+		let key = `Account.findByAccount[${account}]`
+		return chat.cacheWraper(chat.get(`/Tenants/${chat.getTenantId()}/Accounts/${account}`), key)
 	}
 	
 }

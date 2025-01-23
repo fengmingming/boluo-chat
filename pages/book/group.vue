@@ -12,7 +12,7 @@
 			<uni-list>
 				<view v-for="(group, index) in groups">
 					<uni-list-item :title="group.groupName" thumb="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png" 
-						thumb-size="lg"></uni-list-item>
+						thumb-size="lg" :to="`/pages/message/group_chat?groupId=${group.groupId}`"></uni-list-item>
 				</view>
 			</uni-list>
 		</view>

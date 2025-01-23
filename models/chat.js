@@ -50,7 +50,7 @@ export default {
 	delete: function(url, param) {
 		return execute(url, 'DELETE', param)
 	},
-	handleResponsePromise: function(promise, successF) {
+	handleResponsePromise: function(promise, successF, failF) {
 		promise.then(res => {
 			if(res.statusCode >= 200 && res.statusCode < 300) {
 				if(res.data.code == 0) {
@@ -65,10 +65,33 @@ export default {
 				uni.showToast({title:`请求异常${res.statusCode}`, icon: 'fail'})
 			}
 		}).catch(error => {
-			console.log(error)
-			uni.showToast({title:`执行异常${error.errMsg}`, icon: 'fail'})
+			if(failF) {
+				failF(error)
+			}else {
+				console.log(error)
+				uni.showToast({title:`执行异常${error.errMsg}`, icon: 'fail'})
+			}
 		})
 	},
 	logout,
 	wsUrl,
+	cacheWraper: function(promise, cacheKey) {
+		let cacheValue = uni.getStorageSync(cacheKey)
+		if(cacheValue) {
+			return new Promise((resolve,reject) => {
+				resolve(cacheValue)
+			})
+		}else {
+			return new Promise((resolve, reject) => {
+				promise.then(res => {
+					if(res.statusCode >= 200 && res.statusCode < 300 && res.data.code == 0) {
+						uni.setStorageSync(cacheKey, res)
+					}
+					resolve(res)
+				}).then(error => {
+					reject(error)
+				})
+			})
+		}
+	}
 }

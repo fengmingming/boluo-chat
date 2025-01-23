@@ -1,23 +1,12 @@
 import chat from "./chat"
+import { Account } from "./account"
 
 export class Friend {
 	
 	constructor() {}
 	
 	static findAll() {
-		let accounts = uni.getStorageSync('Friend.findAll')
-		if(accounts) {
-			return new Promise((resolve, reject) => {
-				resolve(accounts)
-			})
-		}else {
-			return new Promise((resolve, reject) => {
-				chat.get(`/Tenants/${chat.getTenantId()}/Accounts/${chat.getAccount()}/Friends`).then(data => {
-					uni.setStorageSync('Friend.findAll', data)
-					resolve(data)
-				}).catch(e => reject(e))
-			})
-		}
+		return chat.cacheWraper(chat.get(`/Tenants/${chat.getTenantId()}/Accounts/${chat.getAccount()}/Friends`), 'Find.findAll')
 	}
 	
 	static findByAccount(account) {
@@ -30,7 +19,7 @@ export class Friend {
 				if(map[account]) {
 					resolve({statusCode: 200, data: {code: 0, data: map[account]}})
 				}else {
-					resolve(chat.get(`/Tenants/${chat.getTenantId()}/Accounts/${account}`))
+					resolve({statusCode: 200, data: {code: 404, codeDesc: `${account}不在好友列表中`, data: map[account]}})
 				}
 			})
 		})
